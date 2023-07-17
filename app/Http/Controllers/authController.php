@@ -21,7 +21,37 @@ class authController extends Controller
         $user = User::create($attribute);
         UserRole::create([
             'user_id' => $user->id,
-            'user_id' => 3
+            'role_id' => 3
+        ]);
+        return redirect()->intended('/');
+    }
+    public function regisAlumni(Request $request)
+    {
+        $attribute = $request->validate([
+            'name' => ['required'],
+            'email' => ['required'],
+            'password' => ['required']
+        ]);
+        $attribute['password'] = Hash::make($request->password);
+        $user = User::create($attribute);
+        UserRole::create([
+            'user_id' => $user->id,
+            'role_id' => 2
+        ]);
+        return redirect()->intended('/');
+    }
+    public function regisAdmin(Request $request)
+    {
+        $attribute = $request->validate([
+            'name' => ['required'],
+            'email' => ['required'],
+            'password' => ['required']
+        ]);
+        $attribute['password'] = Hash::make($request->password);
+        $user = User::create($attribute);
+        UserRole::create([
+            'user_id' => $user->id,
+            'role_id' => 1
         ]);
         return redirect()->intended('/');
     }

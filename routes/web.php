@@ -21,8 +21,16 @@ Route::get('/', function () {
 Route::get('/register', function () {
     return view('register');
 });
+Route::get('/register/alumni', function () {
+    return view('regis-alumni');
+});
+Route::get('/register/dosen', function () {
+    return view('regis-admin');
+});
 Route::post('/login', [authController::class, 'login']);
 Route::post('/regis', [authController::class, 'registrasi']);
+Route::post('/admin', [authController::class, 'regisAdmin']);
+Route::post('/alumni', [authController::class, 'regisAlumni']);
 Route::post('/logout', [authController::class, 'logout'])->name('logout');
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/add', function () {
