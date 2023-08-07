@@ -7,6 +7,7 @@ use App\Models\UserRole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 class authController extends Controller
 {
@@ -61,8 +62,13 @@ class authController extends Controller
             'email' => ['required'],
             'password' => ['required']
         ]);
-        if (!Auth::attempt($request->only('email', 'password'))) {
+        $email = User::where('email', $request->email)->first();
+        if (!$email) {
             return back()->with('loginError', 'login failed, please sign-in again!');
+        } else if (!$email->row_active) {
+            return back()->with('loginError', 'Admin Does not confirm account, wait for minute!');
+        } else if (!Auth::attempt($request->only('email', 'password'))) {
+            return back()->with('pageError', 'Admin Does not confirm account, wait for minute!');
         }
         $request->session()->regenerate();
         return redirect()->intended('/card');

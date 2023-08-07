@@ -2,26 +2,19 @@
 @section('card')
 <div class="container-fluid px-4">
     <h1 class="mt-4">Dashboard</h1>
+    @if (session()->has('nullData'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{session('nullData')}}
+        </div>
+    @endif
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item active">Dashboard</li>
     </ol>
     <div class="row">
         <div class="col-xl-2 col-md-6">
             <div class="card bg-primary text-white mb-4">
-                <div class="card-body" style="text-align: center"><h2>{{$dataAdmin}}</h2></div>
-                <div class="card-body" style="text-align: center"><h3>Admin</h3></div>
-            </div>
-        </div>
-        <div class="col-xl-2 col-md-2">
-            <div class="card bg-warning text-white mb-4">
-                <div class="card-body" style="text-align: center"><h2>{{$dataAlumni}}</h2></div>
-                <div class="card-body" style="text-align: center"><h3>Alumni</h3></div>
-            </div>
-        </div>
-        <div class="col-xl-2 col-md-6">
-            <div class="card bg-success text-white mb-4">
-                <div class="card-body" style="text-align: center"><h2>{{$dataUmum}}</h2></div>
-                <div class="card-body" style="text-align: center"><h3>Umum</h3></div>
+                <div class="card-body" style="text-align: center"><h2>{{$dataAll}}</h2></div>
+                <div class="card-body" style="text-align: center"><h3>Pengunjung</h3></div>
             </div>
         </div>
         <div class="col-xl-3 col-md-6">
@@ -43,6 +36,7 @@
                             <p class="card-text">{{$data->description}}</p>
                             <div class="sb-nav-link-icon"><i class="fa fa-envelope"></i> {{$data->email}}</div>
                             <div class="sb-nav-link-icon"><i class="fa fa-phone"></i> {{$data->telephone}}</div>
+                            <div class="sb-nav-link-icon"><a href="{{url('download/'.$data->id)}}"><i class="fa fa-download"></i></a></div>
                         </div>
                     </div>
                     <br/>

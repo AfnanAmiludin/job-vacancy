@@ -25,12 +25,20 @@
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
 </head>
 <body class="bg-dark">
-
     <div class="sufee-login d-flex align-content-center flex-wrap">
         <div class="container">
+            @if (session()->has('loginError'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{session('loginError')}}
+                    </div>
+            @elseif (session()->has('pageError'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{session('pageError')}}
+                    </div>
+            @endif
             <div class="login-content">
                 <div class="login-logo">
-                    <a href="index.html">
+                    <a href="#">
                         <img class="align-content" src="{{asset('asset/poltekbang.png')}}" alt="">
                     </a>
                 </div>

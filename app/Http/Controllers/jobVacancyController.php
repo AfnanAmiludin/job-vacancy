@@ -14,14 +14,10 @@ class jobVacancyController extends Controller
     public function show()
     {
         $getAll = JobVacancy::all();
-        $getAdmin = UserRole::where('role_id', 1)->get();
-        $dataAdmin = count($getAdmin);
-        $getAlumni = UserRole::where('role_id', 2)->get();
-        $dataAlumni = count($getAlumni);
-        $getUmum = UserRole::where('role_id', 3)->get();
-        $dataUmum = count($getUmum);
+        $getUser = User::all();
+        $dataAll = count($getUser);
 
-        return view('card', compact('getAll', 'dataAdmin', 'dataAlumni', 'dataUmum'));
+        return view('card', compact('getAll', 'dataAll'));
     }
     public function create(Request $request)
     {
@@ -32,8 +28,10 @@ class jobVacancyController extends Controller
             'salary' => ['required'],
             'description' => ['required'],
             'email' => ['required'],
-            'telephone' => ['required']
+            'telephone' => ['required'],
+            'file' => ['required']
         ]);
+        $attribute['file'] = $request->file('file')->store('post-file');
         $job = JobVacancy::create([
             'potition' => $attribute['potition'],
             'name' => $attribute['name'],
@@ -41,12 +39,22 @@ class jobVacancyController extends Controller
             'salary' => $attribute['salary'],
             'description' => $attribute['description'],
             'email' => $attribute['email'],
-            'telephone' => $attribute['telephone']
+            'telephone' => $attribute['telephone'],
+            'file' => $attribute['file']
         ]);
         $users = User::all();
         foreach ($users as $key => $user) {
             Mail::to($user->email)->send(new UserEmail($user, $job));
         }
         return redirect()->intended('/card');
+    }
+    public function download(JobVacancy $id)
+    {
+        $jobVacancy = JobVacancy::where('id', $id->id)->first();
+        if (!$jobVacancy->file) {
+            return back()->with('nullData', 'Not found file!');
+        }
+        $pathToFile = public_path("storage/{$jobVacancy->file}");
+        return response()->download($pathToFile);
     }
 }

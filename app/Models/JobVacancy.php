@@ -16,5 +16,6 @@ class JobVacancy extends Model
         'description',
         'email',
         'telephone',
+        'file'
     ];
 }
