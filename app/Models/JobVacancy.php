@@ -18,4 +18,8 @@ class JobVacancy extends Model
         'telephone',
         'file'
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id');
+    }
 }

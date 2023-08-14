@@ -7,13 +7,14 @@ use App\Models\JobVacancy;
 use App\Models\User;
 use App\Models\UserRole;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class jobVacancyController extends Controller
 {
     public function show()
     {
-        $getAll = JobVacancy::all();
+        $getAll = JobVacancy::where('row_active', true)->get();
         $getUser = User::all();
         $dataAll = count($getUser);
 
@@ -21,6 +22,7 @@ class jobVacancyController extends Controller
     }
     public function create(Request $request)
     {
+        $user = Auth::user()->id;
         $attribute = $request->validate([
             'potition' => ['required'],
             'name' => ['required'],
@@ -40,7 +42,8 @@ class jobVacancyController extends Controller
             'description' => $attribute['description'],
             'email' => $attribute['email'],
             'telephone' => $attribute['telephone'],
-            'file' => $attribute['file']
+            'file' => $attribute['file'],
+            'user_id' => $user
         ]);
         $users = User::all();
         foreach ($users as $key => $user) {

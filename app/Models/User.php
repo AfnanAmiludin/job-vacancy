@@ -47,4 +47,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(User::class, 'user_roles', 'user_id', 'role_id');
     }
+    public function jobVacancy()
+    {
+        return $this->hasMany(JobVacancy::class, 'id');
+    }
 }

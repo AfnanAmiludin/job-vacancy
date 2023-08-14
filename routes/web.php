@@ -37,8 +37,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/add', function () {
         return view('add');
     });
-    Route::get('/confirm', [adminController::class, 'confirm']);
-    Route::get('/actionConfirm/{data}', [adminController::class, 'dataUser']);
     Route::get('/card', [jobVacancyController::class, 'show']);
     Route::post('/create', [jobVacancyController::class, 'create']);
     Route::get('download/{id}', [jobVacancyController::class, 'download']);
@@ -46,4 +44,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
 Route::middleware(['auth:sanctum', 'adminMiddleware'])->group(function () {
     Route::get('/confirm', [adminController::class, 'confirm']);
     Route::get('/actionConfirm/{data}', [adminController::class, 'dataUser']);
+    Route::get('/actionJobConfirm/{data}', [adminController::class, 'jobConfirm']);
 });

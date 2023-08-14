@@ -11,7 +11,7 @@
                 <div class="card-body card-block">
                     <div class="has-success form-group"><label class=" form-control-label">Company</label><input type="name" class="form-control" name="name"></div>
                     <div class="has-warning form-group"><label class=" form-control-label">Potition</label><input type="potition" class="form-control" name="potition"></div>
-                    <div class="has-success form-group"><label class=" form-control-label">Salary</label><input type="number" class="form-control" name="salary"></div>
+                    <div class="has-success form-group"><label class=" form-control-label ">Salary</label><input id="uang" class="form-control" name="salary"></div>
                     <div class="has-warning form-group"><label class=" form-control-label">Description</label><input type="text" class="form-control" name="description"></div>
                     <div class="has-success form-group"><label class=" form-control-label">Address</label><input type="address" class="form-control" name="address"></div>
                     <div class="has-warning form-group"><label class=" form-control-label">Email</label><input type="email" class="form-control" name="email"></div>
